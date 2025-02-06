@@ -5,4 +5,5 @@ numpy
 pandas
 plotly
 scikit-learn
-prophet
+cmdstanpy
+prophet==1.1.4

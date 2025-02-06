@@ -1,4 +1,8 @@
 streamlit
 yfinance
 matplotlib
-fbprophet
+numpy
+pandas
+plotly
+scikit-learn
+prophet

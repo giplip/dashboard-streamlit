@@ -7,3 +7,6 @@ scikit-learn
 cmdstanpy
 prophet==1.1.4
 alpha_vantage
+markdown-it-py==2.2.0
+rich==13.3.5
+pygments==2.15.0

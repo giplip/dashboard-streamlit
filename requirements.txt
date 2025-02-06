@@ -1,7 +1,7 @@
 streamlit
 yfinance
 matplotlib
-numpy
+numpy==1.23.5
 pandas
 plotly
 scikit-learn

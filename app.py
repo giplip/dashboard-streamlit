@@ -3,7 +3,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-from fbprophet import Prophet
+from prophet import Prophet
 
 # Título de la aplicación
 st.title("📈 Dashboard de Cotizaciones y Predicciones de Empresas")

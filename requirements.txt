@@ -5,7 +5,7 @@ numpy==1.23.5
 plotly
 scikit-learn
 cmdstanpy
-prophet==1.1.4
+# prophet==1.1.4
 alpha_vantage
 setuptools==58.0.4
 wheel

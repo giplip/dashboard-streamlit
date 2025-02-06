@@ -1,8 +1,14 @@
 import os
-os.system('pip install yfinance')
+import subprocess
+
+# Intentar importar yfinance, si no está instalado, instalarlo dinámicamente
+try:
+    import yfinance as yf
+except ModuleNotFoundError:
+    subprocess.run(["pip", "install", "yfinance"])
+    import yfinance as yf
 
 import streamlit as st
-import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta

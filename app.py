@@ -1,12 +1,12 @@
 import os
 import subprocess
 
-# Intentar importar yfinance, si no está instalado, instalarlo dinámicamente
+# Instalar alpha_vantage si no está presente
 try:
-    import yfinance as yf
+    from alpha_vantage.timeseries import TimeSeries
 except ModuleNotFoundError:
-    subprocess.run(["pip", "install", "yfinance"])
-    import yfinance as yf
+    subprocess.run(["pip", "install", "alpha_vantage"])
+    from alpha_vantage.timeseries import TimeSeries
 
 import streamlit as st
 import pandas as pd
@@ -36,16 +36,15 @@ companies = {
 
 selected_company = st.selectbox("Selecciona una empresa para visualizar:", list(companies.keys()))
 
-start_date = datetime.now() - timedelta(days=5*365)
-end_date = datetime.now()
-
-symbol = companies[selected_company]
-data = yf.download(symbol, start=start_date, end=end_date)
+# Reemplazamos yfinance con Alpha Vantage
+API_KEY = "demo"  # 🔹 Para producción, usa tu propia API Key de Alpha Vantage
+ts = TimeSeries(key=API_KEY, output_format="pandas")
+data, meta_data = ts.get_daily(symbol=companies[selected_company], outputsize="compact")
 
 st.subheader(f"Cotización histórica de {selected_company}")
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(data.index, data["Close"], label="Precio de Cierre", color="blue")
-ax.set_title(f"Cotización de {selected_company} ({symbol})")
+ax.plot(data.index, data["4. close"], label="Precio de Cierre", color="blue")
+ax.set_title(f"Cotización de {selected_company}")
 ax.set_xlabel("Fecha")
 ax.set_ylabel("Precio de Cierre (USD)")
 ax.legend()
@@ -54,7 +53,7 @@ st.pyplot(fig)
 st.subheader(f"Predicción de Cotización para {selected_company}")
 
 df = data.reset_index()
-df = df[['Date', 'Close']]
+df = df[['date', '4. close']]
 df.columns = ['ds', 'y']
 
 model = Prophet()
